@@ -1,0 +1,21 @@
+---
+layout: default
+title: 博客文章
+permalink: /blog/
+description: "sunday0612 写过的文章，按时间倒序排列。"
+---
+<header class="page-head">
+  <p class="eyebrow">归档</p>
+  <h1>博客文章</h1>
+  <p class="lede">按时间倒序排列。</p>
+</header>
+
+{% if site.posts.size == 0 %}
+  <p class="empty">还没有文章。</p>
+{% else %}
+  <ol class="post-list">
+    {% for post in site.posts %}
+      {% include post-item.html heading="h2" %}
+    {% endfor %}
+  </ol>
+{% endif %}

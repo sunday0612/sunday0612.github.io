@@ -1,0 +1,50 @@
+# 站点配置
+# 改完后提交并推送到 main，GitHub Pages 会自动重新构建，无需在本地安装工具。
+#
+# 日常会改的通常只有下面两项：
+#   title        浏览器标签上的名字
+#   description  一段简短介绍（首页简介、订阅源也会用到）
+# 自我介绍、项目作品、联系方式不在这里，而在 _data 目录。
+
+title: sunday0612
+description: "sunday0612 的个人主页与博客。这里放自我介绍、文章、作品和联系方式。"
+author: sunday0612
+lang: zh-CN
+url: "https://sunday0612.github.io"
+baseurl: ""
+timezone: Asia/Shanghai
+
+markdown: kramdown
+highlighter: rouge
+excerpt_separator: "<!--more-->"
+
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    default_lang: text
+    span:
+      line_numbers: false
+    block:
+      line_numbers: false
+
+# 文章默认使用文章页模板，地址形如 /blog/2026/10/12/welcome/
+# 因此新建文章时，即使忘了写 layout，页面也能正常生成。
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      permalink: /blog/:year/:month/:day/:title/
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .bundle
+  - node_modules
+
+future: false

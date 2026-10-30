@@ -1,0 +1,126 @@
+---
+layout: default
+title: 首页
+---
+{% assign profile = site.data.profile %}
+
+<section class="hero">
+  <p class="eyebrow">{{ profile.eyebrow | default: "个人站点" | escape }}</p>
+  <h1>{{ profile.name | default: site.title | escape }}</h1>
+  <p class="tagline">{{ profile.tagline | escape }}</p>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="{{ profile.github | default: 'https://github.com/sunday0612' }}" rel="me noopener noreferrer">GitHub</a>
+    <a class="btn" href="#about">自我介绍</a>
+  </div>
+</section>
+
+<section id="about" class="section">
+  <div class="section-head">
+    <span class="sec-index">01</span>
+    <h2>自我介绍</h2>
+  </div>
+  <div class="about-layout">
+    <aside class="about-meta">
+      {% if profile.role %}
+        <p class="meta-label">身份</p>
+        <p>{{ profile.role | escape }}</p>
+      {% endif %}
+      {% if profile.location %}
+        <p class="meta-label">所在</p>
+        <p>{{ profile.location | escape }}</p>
+      {% endif %}
+      {% if profile.interests %}
+        <p class="meta-label">在意</p>
+        <ul class="interest-list">
+          {% for item in profile.interests %}
+            <li>{{ item | escape }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </aside>
+    <div class="about-copy prose">
+      {{ profile.bio | markdownify }}
+    </div>
+  </div>
+</section>
+
+<section id="posts" class="section">
+  <div class="section-head">
+    <span class="sec-index">02</span>
+    <h2>博客文章</h2>
+    <a class="section-more" href="{{ '/blog/' | relative_url }}">全部文章</a>
+  </div>
+  {% if site.posts.size == 0 %}
+    <p class="empty">还没有文章。在 <code>_posts</code> 目录放一份 Markdown 即可。</p>
+  {% else %}
+    <ol class="post-list">
+      {% for post in site.posts limit: 4 %}
+        {% include post-item.html heading="h3" %}
+      {% endfor %}
+    </ol>
+  {% endif %}
+</section>
+
+<section id="projects" class="section">
+  <div class="section-head">
+    <span class="sec-index">03</span>
+    <h2>项目作品</h2>
+  </div>
+  {% if site.data.projects.size == 0 %}
+    <p class="empty">还没有项目。在 <code>_data/projects.yml</code> 里加一段即可。</p>
+  {% else %}
+    <ul class="work-list">
+      {% for project in site.data.projects %}
+        <li>
+          <div class="work-main">
+            <p class="work-meta">
+              {% if project.year %}<span>{{ project.year | escape }}</span>{% endif %}
+              {% if project.placeholder %}<span class="mark">占位</span>{% endif %}
+            </p>
+            <h3>{{ project.name | escape }}</h3>
+            {% if project.tags %}
+              <p class="tags">{{ project.tags | join: " · " | escape }}</p>
+            {% endif %}
+          </div>
+          <p class="work-desc">{{ project.description | escape }}</p>
+          {% if project.url %}
+            <a class="text-arrow" href="{{ project.url }}" target="_blank" rel="noopener noreferrer">
+              {{ project.link_label | default: "查看" | escape }}<span aria-hidden="true"> →</span>
+              <span class="sr-only">（新标签页打开）</span>
+            </a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</section>
+
+<section id="contact" class="section">
+  <div class="section-head">
+    <span class="sec-index">04</span>
+    <h2>联系方式</h2>
+  </div>
+  {% if site.data.contact.size == 0 %}
+    <p class="empty">还没有联系方式。</p>
+  {% else %}
+    <dl class="contact-list">
+      {% for item in site.data.contact %}
+        <div>
+          <dt>
+            {{ item.label | escape }}
+            {% if item.placeholder %}<span class="mark">占位</span>{% endif %}
+          </dt>
+          <dd>
+            {% assign href = item.url | default: "" | strip %}
+            {% if href == "" %}
+              {{ item.text | escape }}
+            {% else %}
+              <a href="{{ href }}" {% if href contains "http" %}rel="me noopener noreferrer"{% endif %}>{{ item.text | escape }}</a>
+            {% endif %}
+          </dd>
+        </div>
+      {% endfor %}
+    </dl>
+  {% endif %}
+  <p class="edit-hint">标有「占位」或「示例」的内容都可以替换。简介、作品和联系方式在 <code>_data</code> 目录，文章在 <code>_posts</code> 目录。改法写在仓库的 README 里。</p>
+</section>

@@ -1,0 +1,34 @@
+# 首页「项目作品」
+# 复制下面一整段（从「- name」到 tags 结束）即可新增一个项目。
+# 不需要的项目，删掉对应的那一段。
+# placeholder 为 true 时，页面上会显示「占位」。换成真实项目后改为 false，或删掉这一行。
+
+- name: "静夜笔记"
+  placeholder: true
+  year: "2026"
+  description: "占位项目。用一两句话说明它做什么、你负责哪一部分。"
+  url: "https://github.com/sunday0612"
+  link_label: "查看"
+  tags:
+    - "占位"
+    - "待替换"
+
+- name: "一封长信"
+  placeholder: true
+  year: "2026"
+  description: "占位项目。可以写给谁用、用了什么、现在进行到哪一步。"
+  url: "https://github.com/sunday0612"
+  link_label: "查看"
+  tags:
+    - "占位"
+    - "写作"
+
+- name: "小工具草稿"
+  placeholder: true
+  year: "2026"
+  description: "占位项目。链接可以改成仓库、演示地址，或一篇相关文章。"
+  url: "https://github.com/sunday0612"
+  link_label: "查看"
+  tags:
+    - "占位"
+    - "工具"

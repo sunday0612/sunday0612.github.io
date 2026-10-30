@@ -1,0 +1,16 @@
+{% assign profile = site.data.profile %}
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="{{ '/' | relative_url }}">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>{{ profile.name | default: site.title | escape }}</span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      <a href="{{ '/' | relative_url }}" {% if page.url == "/" %}aria-current="page"{% endif %}>首页</a>
+      <a href="{{ '/blog/' | relative_url }}" {% if page.url == "/blog/" or page.url == "/blog/index.html" or page.layout == "post" %}aria-current="page"{% endif %}>文章</a>
+      <a href="{{ '/' | relative_url }}#about">简介</a>
+      <a href="{{ '/' | relative_url }}#projects">作品</a>
+      <a href="{{ '/' | relative_url }}#contact">联系</a>
+    </nav>
+  </div>
+</header>

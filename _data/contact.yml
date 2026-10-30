@@ -1,0 +1,19 @@
+# 首页「联系方式」
+# url 填链接。邮箱请写成 mailto:you@example.com
+# 没有链接的一项，把 url 留成 "" 即可。
+# placeholder 为 true 时，页面上会显示「占位」。
+
+- label: "GitHub"
+  text: "sunday0612"
+  url: "https://github.com/sunday0612"
+  placeholder: false
+
+- label: "邮箱"
+  text: "your-email@example.com"
+  url: "mailto:your-email@example.com"
+  placeholder: true
+
+- label: "其他"
+  text: "其他账号（占位）"
+  url: ""
+  placeholder: true

@@ -1,0 +1,9 @@
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <p>© {{ site.time | date: "%Y" }} {{ site.data.profile.name | default: site.title | escape }}</p>
+    <p class="footer-links">
+      <a href="{{ '/feed.xml' | relative_url }}">订阅</a>
+      <a href="https://github.com/sunday0612" rel="me noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>

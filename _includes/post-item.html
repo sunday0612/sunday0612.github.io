@@ -1,0 +1,12 @@
+<li class="post-item">
+  <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y年%-m月%-d日" }}</time>
+  <div class="post-item-body">
+    <{{ include.heading | default: "h3" }} class="post-item-title">
+      <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+      {% if post.sample %}<span class="mark">示例</span>{% endif %}
+    </{{ include.heading | default: "h3" }}>
+    {% if post.excerpt %}
+      <p>{{ post.excerpt | strip_html | strip_newlines }}</p>
+    {% endif %}
+  </div>
+</li>

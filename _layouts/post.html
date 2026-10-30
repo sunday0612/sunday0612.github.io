@@ -1,0 +1,48 @@
+---
+layout: default
+---
+{% assign newer = nil %}
+{% assign older = nil %}
+{% for item in site.posts %}
+  {% if item.url == page.url %}
+    {% assign newer_i = forloop.index0 | minus: 1 %}
+    {% assign older_i = forloop.index0 | plus: 1 %}
+    {% if newer_i >= 0 %}
+      {% assign newer = site.posts[newer_i] %}
+    {% endif %}
+    {% if older_i < site.posts.size %}
+      {% assign older = site.posts[older_i] %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+<article class="post">
+  <header class="post-header">
+    <p class="back-link"><a href="{{ '/blog/' | relative_url }}">全部文章</a></p>
+    <p class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y年%-m月%-d日" }}</time>
+      {% if page.categories.size > 0 %}
+        <span aria-hidden="true">·</span>
+        <span>{{ page.categories | join: " · " }}</span>
+      {% endif %}
+      {% if page.sample %}<span class="mark">示例文章</span>{% endif %}
+    </p>
+    <h1>{{ page.title | escape }}</h1>
+  </header>
+  <div class="prose post-body">
+    {{ content }}
+  </div>
+  <nav class="pager" aria-label="相邻文章">
+    {% if newer %}
+      <a class="pager-link" href="{{ newer.url | relative_url }}">
+        <span class="pager-dir">较新的一篇</span>
+        <span class="pager-title">{{ newer.title | escape }}</span>
+      </a>
+    {% endif %}
+    {% if older %}
+      <a class="pager-link pager-older" href="{{ older.url | relative_url }}">
+        <span class="pager-dir">较早的一篇</span>
+        <span class="pager-title">{{ older.title | escape }}</span>
+      </a>
+    {% endif %}
+  </nav>
+</article>
