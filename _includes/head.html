@@ -25,9 +25,7 @@
   <meta property="og:locale" content="zh_CN">
   <meta property="og:image" content="{{ '/assets/images/night-lake.webp' | absolute_url }}">
   <meta property="og:image:alt" content="静夜山湖，月光照亮远山与薄雾">
-  {% if page.body_class == 'home' %}
   <link rel="preload" as="image" href="{{ '/assets/images/night-lake.webp' | relative_url }}" imagesrcset="{{ '/assets/images/night-lake-mobile.webp' | relative_url }} 960w, {{ '/assets/images/night-lake.webp' | relative_url }} 1672w" imagesizes="100vw" fetchpriority="high">
-  {% endif %}
   <link rel="icon" href="{{ '/assets/favicon.svg' | relative_url }}" type="image/svg+xml">
   <link rel="alternate" type="application/atom+xml" title="{{ site.title | escape }}" href="{{ '/feed.xml' | relative_url }}">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>

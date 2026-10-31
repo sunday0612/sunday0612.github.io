@@ -67,6 +67,8 @@
 
 首页背景为专门生成的原创山湖夜景，沿用墨黑、雾蓝、暖金与衬线字体。背景使用本地 WebP，不依赖外部图片服务。
 
+山湖图作为全站固定背景铺满视口，首页向下滚动、文章归档与正文页均可看到。四周通过多层渐变融入墨黑；阅读区域自动加深遮罩，让文字保持清楚。背景组件在 `_layouts/default.html`，渐变与遮罩在 `assets/css/nocturne.css` 的 `.site-background`、`.site-backdrop` 中。
+
 - `assets/images/night-lake.webp`：桌面背景，1672 × 941。
 - `assets/images/night-lake-mobile.webp`：移动设备背景，960 × 540，由浏览器按屏幕选择。
 - `assets/css/nocturne.css`：在原样式上叠加的主题，含首屏、文章、作品及移动适配。

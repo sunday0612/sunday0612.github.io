@@ -6,14 +6,6 @@ body_class: home
 {% assign profile = site.data.profile %}
 
 <section class="hero" aria-labelledby="hero-title">
-  <picture class="hero-art" aria-hidden="true">
-    <img src="{{ '/assets/images/night-lake.webp' | relative_url }}" srcset="{{ '/assets/images/night-lake-mobile.webp' | relative_url }} 960w, {{ '/assets/images/night-lake.webp' | relative_url }} 1672w" sizes="100vw" width="1672" height="941" alt="" fetchpriority="high" decoding="async">
-  </picture>
-  <div class="hero-atmosphere" aria-hidden="true">
-    <div class="hero-glow"></div>
-    <div class="hero-mist"></div>
-    <div class="hero-water"></div>
-  </div>
   <div class="hero-content">
     <p class="eyebrow">{{ profile.eyebrow | default: "个人站点" | escape }}<span class="eyebrow-en" lang="en">A QUIET CORNER OF THE WEB</span></p>
     <h1 id="hero-title">{{ profile.name | default: site.title | escape }}</h1>

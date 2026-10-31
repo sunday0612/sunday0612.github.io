@@ -9,8 +9,8 @@
   if (motionQuery.addEventListener) motionQuery.addEventListener('change', setMotion);
 
   initScrollSpy();
+  initBackground();
   if (motionQuery.matches) {
-    initHero();
     initReveal();
   }
 
@@ -84,20 +84,17 @@
     nodes.forEach((node) => observer.observe(node));
   }
 
-  function initHero() {
+  function initBackground() {
+    const backdrop = document.querySelector('.site-backdrop');
+    if (!backdrop) return;
     const hero = document.querySelector('.home .hero');
-    if (!hero) return;
-    const img = hero.querySelector('.hero-art img');
-    const atmosphere = hero.querySelector('.hero-atmosphere');
-
     let scrollFrame = 0;
     const parallax = () => {
       scrollFrame = 0;
       const y = Math.max(window.scrollY, 0);
-      const limit = hero.offsetHeight * 0.08;
-      const shift = Math.min(y * 0.12, limit);
-      if (img) img.style.transform = `translate3d(0, ${shift}px, 0) scale(1.26)`;
-      if (atmosphere) atmosphere.style.transform = `translate3d(0, ${shift * 0.35}px, 0)`;
+      const shift = motionQuery.matches ? Math.min(y * 0.035, 12) : 0;
+      backdrop.style.setProperty('--background-shift', `${shift}px`);
+      document.body.classList.toggle('is-reading', !hero || y > hero.offsetHeight * 0.55);
     };
     const onScroll = () => {
       if (scrollFrame) return;
@@ -106,5 +103,6 @@
     parallax();
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
+    if (motionQuery.addEventListener) motionQuery.addEventListener('change', onScroll);
   }
 })();
