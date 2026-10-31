@@ -2,12 +2,12 @@
 
 :root {
   color-scheme: dark;
-  --bg: #100e0c;
-  --ink: #f4eee4;
-  --ink-soft: #c9bdae;
-  --ink-faint: #a89886;
-  --gold: #c6a56e;
-  --gold-bright: #e6d0a2;
+  --bg: #10110f;
+  --ink: #eeeae0;
+  --ink-soft: #b9b8ad;
+  --ink-faint: #92948a;
+  --gold: #bca77c;
+  --gold-bright: #dfcea6;
   --line: rgba(198, 165, 110, 0.34);
   --line-soft: rgba(244, 238, 228, 0.1);
   --serif: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", "Songti SC", "STSong", "Noto Serif CJK SC", "SimSun", serif;
@@ -34,12 +34,9 @@ body {
   display: flex;
   flex-direction: column;
   color: var(--ink);
-  background:
-    radial-gradient(ellipse 48rem 34rem at 110% -8%, rgba(198, 165, 110, 0.075), transparent 62%),
-    radial-gradient(ellipse 44rem 32rem at -18% 0%, rgba(24, 38, 74, 0.55), transparent 60%),
-    var(--bg);
+  background: var(--bg);
   font-family: var(--sans);
-  font-size: 1.0625rem;
+  font-size: 1rem;
   line-height: 1.75;
   font-weight: 400;
   text-rendering: optimizeLegibility;
@@ -83,7 +80,7 @@ a {
 }
 
 .wrap {
-  width: min(var(--wrap), calc(100% - clamp(1.5rem, 5vw, 4rem)));
+  width: min(var(--wrap), calc(100% - clamp(2.5rem, 10vw, 9rem)));
   margin-inline: auto;
 }
 
@@ -118,7 +115,7 @@ a {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(16, 14, 12, 0.82);
+  background: rgba(16, 17, 15, 0.87);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line-soft);
 }
@@ -129,7 +126,7 @@ a {
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem 1.5rem;
-  min-height: 4.25rem;
+  min-height: 5rem;
   padding: 0.85rem 0;
 }
 

@@ -62,3 +62,15 @@
 - 保存后再等一分钟
 
 标题字体使用 [jsDelivr](https://cdn.jsdelivr.net) 上的 Noto Serif SC（国内一般可以访问）。若字体文件加载失败，标题会退回系统里的宋体，页面仍然完整。
+
+## 静夜山湖视觉主题
+
+首页背景为专门生成的原创山湖夜景，沿用墨黑、雾蓝、暖金与衬线字体。背景使用本地 WebP，不依赖外部图片服务。
+
+- `assets/images/night-lake.webp`：桌面背景，1672 × 941。
+- `assets/images/night-lake-mobile.webp`：移动设备背景，960 × 540，由浏览器按屏幕选择。
+- `assets/css/nocturne.css`：在原样式上叠加的主题，含首屏、文章、作品及移动适配。
+- `assets/js/site.js`：可选的导航高亮增强；关闭 JavaScript 仍可阅读与跳转。
+- 首页诗句在 `index.html` 的 `hero-verse` 中，一句话介绍仍在 `_data/profile.yml` 的 `tagline` 中。
+
+首屏图片提前加载，使用固定宽高避免布局跳动。动效尊重系统的「减少动态效果」设置；文章地址、订阅源与原有数据文件结构保持一致。

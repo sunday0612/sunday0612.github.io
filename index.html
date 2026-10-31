@@ -1,16 +1,27 @@
 ---
 layout: default
 title: 首页
+body_class: home
 ---
 {% assign profile = site.data.profile %}
 
-<section class="hero">
-  <p class="eyebrow">{{ profile.eyebrow | default: "个人站点" | escape }}</p>
-  <h1>{{ profile.name | default: site.title | escape }}</h1>
-  <p class="tagline">{{ profile.tagline | escape }}</p>
-  <div class="hero-actions">
-    <a class="btn btn-primary" href="{{ profile.github | default: 'https://github.com/sunday0612' }}" rel="me noopener noreferrer">GitHub</a>
-    <a class="btn" href="#about">自我介绍</a>
+<section class="hero" aria-labelledby="hero-title">
+  <picture class="hero-art" aria-hidden="true">
+    <img src="{{ '/assets/images/night-lake.webp' | relative_url }}" srcset="{{ '/assets/images/night-lake-mobile.webp' | relative_url }} 960w, {{ '/assets/images/night-lake.webp' | relative_url }} 1672w" sizes="100vw" width="1672" height="941" alt="" fetchpriority="high" decoding="async">
+  </picture>
+  <div class="hero-content">
+    <p class="eyebrow">{{ profile.eyebrow | default: "个人站点" | escape }}<span class="eyebrow-en" lang="en">A QUIET CORNER OF THE WEB</span></p>
+    <h1 id="hero-title">{{ profile.name | default: site.title | escape }}</h1>
+    <p class="hero-verse">在静夜里，<br>收集微光。</p>
+    <p class="tagline">{{ profile.tagline | escape }}</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#posts">翻阅文章 <span aria-hidden="true">↗</span></a>
+      <a class="btn btn-quiet" href="{{ profile.github | default: 'https://github.com/sunday0612' }}" rel="me noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+  <div class="hero-foot">
+    <a class="scroll-cue" href="#about"><span class="scroll-line" aria-hidden="true"></span>向下，慢慢了解<span aria-hidden="true"> ↓</span></a>
+    <p class="scene-note"><span aria-hidden="true">☾</span> 静夜 · 远山 · 一点微光</p>
   </div>
 </section>
 
@@ -18,6 +29,7 @@ title: 首页
   <div class="section-head">
     <span class="sec-index">01</span>
     <h2>自我介绍</h2>
+    <span class="section-en" lang="en">ABOUT</span>
   </div>
   <div class="about-layout">
     <aside class="about-meta">
@@ -48,7 +60,8 @@ title: 首页
   <div class="section-head">
     <span class="sec-index">02</span>
     <h2>博客文章</h2>
-    <a class="section-more" href="{{ '/blog/' | relative_url }}">全部文章</a>
+    <span class="section-en" lang="en">JOURNAL</span>
+    <a class="section-more" href="{{ '/blog/' | relative_url }}">全部文章 <span aria-hidden="true">↗</span></a>
   </div>
   {% if site.posts.size == 0 %}
     <p class="empty">还没有文章。在 <code>_posts</code> 目录放一份 Markdown 即可。</p>
@@ -65,6 +78,7 @@ title: 首页
   <div class="section-head">
     <span class="sec-index">03</span>
     <h2>项目作品</h2>
+    <span class="section-en" lang="en">SELECTED WORKS</span>
   </div>
   {% if site.data.projects.size == 0 %}
     <p class="empty">还没有项目。在 <code>_data/projects.yml</code> 里加一段即可。</p>
@@ -72,6 +86,7 @@ title: 首页
     <ul class="work-list">
       {% for project in site.data.projects %}
         <li>
+          <span class="work-number" aria-hidden="true">0{{ forloop.index }}</span>
           <div class="work-main">
             <p class="work-meta">
               {% if project.year %}<span>{{ project.year | escape }}</span>{% endif %}
@@ -99,7 +114,9 @@ title: 首页
   <div class="section-head">
     <span class="sec-index">04</span>
     <h2>联系方式</h2>
+    <span class="section-en" lang="en">SAY HELLO</span>
   </div>
+  <p class="contact-intro">有想法，或只是想打个招呼。<br><span>很高兴，在这里遇见你。</span></p>
   {% if site.data.contact.size == 0 %}
     <p class="empty">还没有联系方式。</p>
   {% else %}
@@ -122,5 +139,5 @@ title: 首页
       {% endfor %}
     </dl>
   {% endif %}
-  <p class="edit-hint">标有「占位」或「示例」的内容都可以替换。简介、作品和联系方式在 <code>_data</code> 目录，文章在 <code>_posts</code> 目录。改法写在仓库的 README 里。</p>
+  <p class="edit-hint">标有「占位」或「示例」的内容尚待更新。</p>
 </section>
