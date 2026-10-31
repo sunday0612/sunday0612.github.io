@@ -34,4 +34,11 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5.3.1/500.css">
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}?v={{ site.time | date: '%Y%m%d%H%M%S' }}">
   <link rel="stylesheet" href="{{ '/assets/css/nocturne.css' | relative_url }}?v={{ site.time | date: '%Y%m%d%H%M%S' }}">
+  <script>
+    try {
+      if (window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+        document.documentElement.classList.add("motion");
+      }
+    } catch (err) {}
+  </script>
 </head>

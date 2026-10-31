@@ -9,6 +9,12 @@ body_class: home
   <picture class="hero-art" aria-hidden="true">
     <img src="{{ '/assets/images/night-lake.webp' | relative_url }}" srcset="{{ '/assets/images/night-lake-mobile.webp' | relative_url }} 960w, {{ '/assets/images/night-lake.webp' | relative_url }} 1672w" sizes="100vw" width="1672" height="941" alt="" fetchpriority="high" decoding="async">
   </picture>
+  <div class="hero-atmosphere" aria-hidden="true">
+    <div class="hero-glow"></div>
+    <div class="hero-mist"></div>
+    <div class="hero-water"></div>
+    <canvas class="hero-sky"></canvas>
+  </div>
   <div class="hero-content">
     <p class="eyebrow">{{ profile.eyebrow | default: "个人站点" | escape }}<span class="eyebrow-en" lang="en">A QUIET CORNER OF THE WEB</span></p>
     <h1 id="hero-title">{{ profile.name | default: site.title | escape }}</h1>
@@ -26,12 +32,12 @@ body_class: home
 </section>
 
 <section id="about" class="section">
-  <div class="section-head">
+  <div class="section-head reveal">
     <span class="sec-index">01</span>
     <h2>自我介绍</h2>
     <span class="section-en" lang="en">ABOUT</span>
   </div>
-  <div class="about-layout">
+  <div class="about-layout reveal">
     <aside class="about-meta">
       {% if profile.role %}
         <p class="meta-label">身份</p>
@@ -57,7 +63,7 @@ body_class: home
 </section>
 
 <section id="posts" class="section">
-  <div class="section-head">
+  <div class="section-head reveal">
     <span class="sec-index">02</span>
     <h2>博客文章</h2>
     <span class="section-en" lang="en">JOURNAL</span>
@@ -75,7 +81,7 @@ body_class: home
 </section>
 
 <section id="projects" class="section">
-  <div class="section-head">
+  <div class="section-head reveal">
     <span class="sec-index">03</span>
     <h2>项目作品</h2>
     <span class="section-en" lang="en">SELECTED WORKS</span>
@@ -85,7 +91,7 @@ body_class: home
   {% else %}
     <ul class="work-list">
       {% for project in site.data.projects %}
-        <li>
+        <li class="reveal">
           <span class="work-number" aria-hidden="true">0{{ forloop.index }}</span>
           <div class="work-main">
             <p class="work-meta">
@@ -111,18 +117,18 @@ body_class: home
 </section>
 
 <section id="contact" class="section">
-  <div class="section-head">
+  <div class="section-head reveal">
     <span class="sec-index">04</span>
     <h2>联系方式</h2>
     <span class="section-en" lang="en">SAY HELLO</span>
   </div>
-  <p class="contact-intro">有想法，或只是想打个招呼。<br><span>很高兴，在这里遇见你。</span></p>
+  <p class="contact-intro reveal">有想法，或只是想打个招呼。<br><span>很高兴，在这里遇见你。</span></p>
   {% if site.data.contact.size == 0 %}
     <p class="empty">还没有联系方式。</p>
   {% else %}
     <dl class="contact-list">
       {% for item in site.data.contact %}
-        <div>
+        <div class="reveal">
           <dt>
             {{ item.label | escape }}
             {% if item.placeholder %}<span class="mark">占位</span>{% endif %}
