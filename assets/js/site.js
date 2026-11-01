@@ -18,8 +18,13 @@
     if (!document.body.classList.contains('home')) return;
     const links = [...document.querySelectorAll('.nav a')];
     const sections = [...document.querySelectorAll('main section[id]')];
+    const hero = document.querySelector('main .hero');
     const header = document.querySelector('.site-header');
     if (!links.length || !sections.length) return;
+    const homeLink = links.find((link) => {
+      const url = new URL(link.href, location.origin);
+      return !url.hash && url.pathname === location.pathname;
+    });
 
     const linkFor = (id) => {
       if (id === 'posts') {
@@ -35,24 +40,34 @@
     const update = () => {
       frame = 0;
       const headerH = header ? header.getBoundingClientRect().height : 0;
-      const line = headerH + 36;
+      // 按导航下方各分区实际占据的可见面积判断，避免文章已成为
+      // 主要阅读内容时，仍要等分节边框贴近导航栏才切换高亮。
+      const visibleHeight = (node) => {
+        const rect = node.getBoundingClientRect();
+        return Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, headerH));
+      };
       const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
       const canScroll = maxScroll > 8;
       const atBottom = canScroll && window.scrollY >= maxScroll - 24;
       let current = null;
+      let largest = hero ? visibleHeight(hero) : 0;
       if (atBottom) {
         current = sections[sections.length - 1];
       } else {
         for (const section of sections) {
-          if (section.getBoundingClientRect().top <= line) current = section;
+          const visible = visibleHeight(section);
+          if (visible > largest) {
+            largest = visible;
+            current = section;
+          }
         }
       }
-      const active = current ? linkFor(current.id) : null;
+      const active = current ? linkFor(current.id) : homeLink;
       for (const link of links) {
         const on = link === active;
         link.classList.toggle('is-active', on);
-        if (on) link.setAttribute('aria-current', 'location');
-        else if (link.getAttribute('aria-current') === 'location') link.removeAttribute('aria-current');
+        if (on) link.setAttribute('aria-current', link === homeLink ? 'page' : 'location');
+        else link.removeAttribute('aria-current');
       }
     };
 
@@ -65,6 +80,16 @@
     window.addEventListener('scroll', request, { passive: true });
     window.addEventListener('resize', request, { passive: true });
     window.addEventListener('hashchange', request);
+    window.addEventListener('load', request);
+    window.addEventListener('pageshow', request);
+    if ('ResizeObserver' in window && header) {
+      const observer = new ResizeObserver(() => {
+        document.documentElement.style.setProperty('--header-offset', `${header.getBoundingClientRect().height}px`);
+        request();
+      });
+      observer.observe(header);
+    }
+    if (document.fonts?.ready) document.fonts.ready.then(request);
   }
 
   function initReveal() {
