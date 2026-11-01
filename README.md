@@ -69,10 +69,12 @@
 
 山湖图作为全站固定背景铺满视口，首页向下滚动、文章归档与正文页均可看到。四周通过多层渐变融入墨黑；阅读区域自动加深遮罩，让文字保持清楚。背景组件在 `_layouts/default.html`，渐变与遮罩在 `assets/css/nocturne.css` 的 `.site-background`、`.site-backdrop` 中。
 
-- `assets/images/night-lake.webp`：桌面背景，1672 × 941。
-- `assets/images/night-lake-mobile.webp`：移动设备背景，960 × 540，由浏览器按屏幕选择。
+- `assets/images/night-lake-moonlight-v2.webp`：桌面背景，1672 × 941。月晕与云层散射直接保留在图像中，与山体和水面反射位置一致。
+- `assets/images/night-lake-moonlight-mobile-v2.webp`：移动设备背景，960 × 540，由浏览器按屏幕选择。
 - `assets/css/nocturne.css`：在原样式上叠加的主题，含首屏、文章、作品及移动适配。
 - `assets/js/site.js`：可选的导航高亮增强；关闭 JavaScript 仍可阅读与跳转。
 - 首页诗句在 `index.html` 的 `hero-verse` 中，一句话介绍仍在 `_data/profile.yml` 的 `tagline` 中。
 
 首屏图片提前加载，使用固定宽高避免布局跳动。动效尊重系统的「减少动态效果」设置；文章地址、订阅源与原有数据文件结构保持一致。
+
+背景保留轻微视差，移除了按屏幕坐标绘制的发光圆、发亮雾团和水面扫光，避免在不同屏幕裁切下出现山体光斑。桌面和手机裁切均以图片右侧为基准，保留月亮及其自然月晕；边缘仍通过暗色渐变与页面融为一体。旧版图片保留，便于后续对照。

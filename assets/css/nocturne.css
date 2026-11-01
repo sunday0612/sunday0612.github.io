@@ -25,47 +25,17 @@ body { font-size: 1.0625rem; isolation: isolate; }
 /* 背景固定铺满视口，贯穿首页、归档与文章页，不随长页面拉伸。 */
 .site-backdrop { position: fixed; z-index: -1; inset: 0; overflow: hidden; pointer-events: none; background: var(--bg); }
 .site-background { position: absolute; inset: 0; display: block; }
-.site-background img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 75% center; transform: translate3d(0, var(--background-shift, 0px), 0) scale(1.06); }
+.site-background img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: right center; transform: translate3d(0, var(--background-shift, 0px), 0) scale(1.06); }
 /* 多层渐变把四边与角落融入墨黑，画面中央仍保留山湖的层次。 */
 .site-background::after {
   content: ""; position: absolute; inset: 0;
   background:
-    linear-gradient(90deg, rgba(16,17,15,.8), rgba(16,17,15,.36) 35%, rgba(16,17,15,.12) 65%, rgba(16,17,15,.64)),
-    linear-gradient(0deg, var(--bg), rgba(16,17,15,.28) 24%, transparent 62%, rgba(16,17,15,.78)),
-    radial-gradient(ellipse at 58% 45%, transparent 30%, rgba(16,17,15,.4) 72%, var(--bg));
+    linear-gradient(90deg, rgba(16,17,15,.82), rgba(16,17,15,.42) 35%, rgba(16,17,15,.06) 70%, rgba(16,17,15,.52)),
+    linear-gradient(0deg, var(--bg), rgba(16,17,15,.3) 24%, transparent 55%, rgba(16,17,15,.12) 82%, rgba(16,17,15,.65)),
+    radial-gradient(ellipse at 58% 45%, transparent 35%, rgba(16,17,15,.28) 80%, var(--bg) 120%);
 }
 .site-backdrop::after { content: ""; position: absolute; inset: 0; background: var(--bg); opacity: .06; transition: opacity .8s ease; }
 body.is-reading .site-backdrop::after, body:not(.home) .site-backdrop::after { opacity: .42; }
-.site-atmosphere { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
-.hero-glow,
-.hero-mist,
-.hero-water { position: absolute; pointer-events: none; }
-.hero-glow {
-  width: min(42vw, 26rem);
-  height: min(42vw, 26rem);
-  right: 8%;
-  top: 4%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(244, 228, 190, .22) 0%, rgba(223, 206, 166, .07) 38%, transparent 72%);
-  opacity: .9;
-}
-.hero-mist {
-  left: -18%;
-  right: -18%;
-  top: 34%;
-  height: 32%;
-  opacity: .8;
-  background:
-    radial-gradient(ellipse at 30% 55%, rgba(214, 210, 198, .16), transparent 60%),
-    radial-gradient(ellipse at 68% 48%, rgba(206, 184, 146, .12), transparent 55%);
-}
-.hero-water { left: 12%; right: -10%; bottom: 0; height: 42%; overflow: hidden; opacity: .7; }
-.hero-water::before {
-  content: "";
-  position: absolute;
-  inset: 0 -12%;
-  background: linear-gradient(100deg, transparent 18%, rgba(236, 220, 180, .09) 48%, transparent 68%);
-}
 .hero-content { width: 100%; }
 .eyebrow { flex-wrap: wrap; gap: .75rem; font-size: .92rem; letter-spacing: .16em; }
 .eyebrow::before { width: 1.9rem; }
@@ -168,9 +138,8 @@ body:not(.home) .site-main { background: transparent; padding-bottom: 4rem; }
   .nav { width: 100%; flex-basis: 100%; justify-content: space-between; gap: .6rem; }
   .nav a { font-size: .95rem; letter-spacing: .04em; }
   .home .hero { min-height: clamp(630px, calc(100svh - 6.3rem), 760px); padding: 4rem 0 7rem; }
-  .site-background img { object-position: 68% center; }
-  .site-background::after { background: linear-gradient(90deg,rgba(16,17,15,.7),rgba(16,17,15,.24) 70%,rgba(16,17,15,.52)),linear-gradient(0deg,var(--bg),rgba(16,17,15,.18) 35%,rgba(16,17,15,.12) 65%,rgba(16,17,15,.8)); }
-  .hero-glow { right: -8%; top: 6%; width: 16rem; height: 16rem; }
+  .site-background img { object-position: right center; }
+  .site-background::after { background: linear-gradient(90deg,rgba(16,17,15,.72),rgba(16,17,15,.18) 70%,rgba(16,17,15,.5)),linear-gradient(0deg,var(--bg),rgba(16,17,15,.24) 35%,transparent 65%,rgba(16,17,15,.14) 82%,rgba(16,17,15,.65)); }
   .home .hero h1 { font-size: clamp(2.8rem,10.5vw,4.5rem); }
   .hero-verse { margin-top: 1.8rem; font-size: 2.05rem; }
   .eyebrow { font-size: .88rem; }
@@ -214,9 +183,6 @@ body:not(.home) .site-main { background: transparent; padding-bottom: 4rem; }
 
 @media (prefers-reduced-motion: no-preference) {
   .hero-verse { animation: rise 1.1s .15s both; }
-  .hero-glow { animation: moon-breathe 22s ease-in-out infinite; animation-delay: -6s; }
-  .hero-mist { animation: mist-drift 26s linear infinite alternate; }
-  .hero-water::before { animation: water-drift 30s linear infinite alternate; }
   html.motion .reveal {
     opacity: 0;
     transform: translateY(12px);
@@ -233,19 +199,6 @@ body:not(.home) .site-main { background: transparent; padding-bottom: 4rem; }
   html.motion .work-list > .reveal.is-in:nth-child(3),
   html.motion .contact-list > .reveal.is-in:nth-child(3) { transition-delay: .2s; }
   html.motion .post-list .reveal.is-in:nth-child(4) { transition-delay: .3s; }
-}
-
-@keyframes moon-breathe {
-  0%, 100% { opacity: .78; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.025); }
-}
-@keyframes mist-drift {
-  0% { transform: translate3d(-8%, 0, 0); }
-  100% { transform: translate3d(8%, 0, 0); }
-}
-@keyframes water-drift {
-  0% { transform: translate3d(-4%, 0, 0); }
-  100% { transform: translate3d(4%, 0, 0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
