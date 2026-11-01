@@ -2,6 +2,17 @@
 # 复制下面一整段（从「- name」到 tags 结束）即可新增一个项目。
 # 不需要的项目，删掉对应的那一段。
 # placeholder 为 true 时，页面上会显示「占位」。换成真实项目后改为 false，或删掉这一行。
+# url 以 http 开头会在新标签页打开；站内页面写成 /works/were-done/ 这样的路径。
+
+- name: "We're Done"
+  year: "2026"
+  subtitle: "12 秒单镜头短片"
+  description: "一个固定的门口过肩近景长镜头。门内男人随口招呼“Hey, what's up, babe?”，门外女子停顿片刻，平静地说出“We're done.”，随后转身沿街离开，镜头停在空出的街道上。根据我写的逐秒分镜脚本，用 AI 视频生成制作。"
+  url: "/works/were-done/"
+  link_label: "查看"
+  tags:
+    - "短片"
+    - "AI 视频"
 
 - name: "静夜笔记"
   placeholder: true

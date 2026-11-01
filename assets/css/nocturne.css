@@ -117,6 +117,8 @@ body:not(.home) .site-main { background: transparent; padding-bottom: 4rem; }
 .post { max-width: 44rem; }
 .back-link a::before { content: "← "; }
 .post-body { margin-top: 2.6rem; padding-top: 2.4rem; border-top: 1px solid var(--line-soft); }
+.work-player { margin-top: 2rem; aspect-ratio: 16 / 9; background: #07080a; border: 1px solid var(--line-soft); }
+.work-player video { display: block; width: 100%; height: 100%; object-fit: contain; background: #000; }
 .prose { overflow-wrap: break-word; font-size: 1.125rem; line-height: 1.95; }
 .prose img { display: block; max-width: 100%; height: auto; }
 .prose table { display: block; overflow-x: auto; border-collapse: collapse; }

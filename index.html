@@ -87,6 +87,10 @@ body_class: home
           <div class="work-main">
             <p class="work-meta">
               {% if project.year %}<span>{{ project.year | escape }}</span>{% endif %}
+              {% if project.subtitle %}
+                {% if project.year %}<span aria-hidden="true"> · </span>{% endif %}
+                <span>{{ project.subtitle | escape }}</span>
+              {% endif %}
               {% if project.placeholder %}<span class="mark">占位</span>{% endif %}
             </p>
             <h3>{{ project.name | escape }}</h3>
@@ -96,9 +100,16 @@ body_class: home
           </div>
           <p class="work-desc">{{ project.description | escape }}</p>
           {% if project.url %}
-            <a class="text-arrow" href="{{ project.url }}" target="_blank" rel="noopener noreferrer">
+            {% assign external = false %}
+            {% if project.url contains "://" %}
+              {% assign external = true %}
+              {% assign project_href = project.url %}
+            {% else %}
+              {% assign project_href = project.url | relative_url %}
+            {% endif %}
+            <a class="text-arrow" href="{{ project_href }}"{% if external %} target="_blank" rel="noopener noreferrer"{% endif %}>
               {{ project.link_label | default: "查看" | escape }}<span aria-hidden="true"> →</span>
-              <span class="sr-only">（新标签页打开）</span>
+              {% if external %}<span class="sr-only">（新标签页打开）</span>{% endif %}
             </a>
           {% endif %}
         </li>
