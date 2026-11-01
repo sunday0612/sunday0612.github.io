@@ -61,7 +61,6 @@ body.is-reading .site-backdrop::after, body:not(.home) .site-backdrop::after { o
 .section-head h2 { font-size: clamp(1.95rem, 3vw, 2.5rem); letter-spacing: .08em; }
 .section-en { color: var(--ink-soft); font-size: .84rem; letter-spacing: .14em; margin-left: .4rem; }
 .section-more { padding-block: .5rem; color: var(--ink-soft); font-size: .98rem; white-space: nowrap; }
-.section-more span { margin-left: .7rem; color: var(--gold); }
 .about-layout { grid-template-columns: 16rem minmax(0,1fr); gap: 5rem; }
 .about-meta { padding-left: 1.8rem; border-left: 1px solid var(--line); font-size: 1.05rem; }
 .meta-label { color: var(--gold-bright); font-size: .95rem; font-weight: 500; letter-spacing: .14em; }
@@ -71,10 +70,8 @@ body.is-reading .site-backdrop::after, body:not(.home) .site-backdrop::after { o
 .about-copy p:first-child { color: var(--ink-soft); font-size: 1rem; }
 .about-copy p:nth-child(2) { color: var(--ink); font-family: var(--serif); font-size: 1.35rem; line-height: 1.95; }
 
-.post-item { position: relative; grid-template-columns: 11rem minmax(0,1fr); gap: 2rem; padding: 1.8rem 2.7rem 1.8rem 0; transition: background .3s ease; }
-.post-item::after { content: "↗"; position: absolute; top: 2rem; right: .5rem; color: var(--gold); font-size: 1.25rem; transition: transform .3s ease; pointer-events: none; }
+.post-item { position: relative; grid-template-columns: 11rem minmax(0,1fr); gap: 2rem; padding: 1.8rem 0; transition: background .3s ease; }
 .post-item:hover, .post-item:focus-within { background: rgba(188,167,124,.06); }
-.post-item:hover::after { transform: translate(3px,-3px); }
 .post-item time { color: var(--ink-soft); font-family: var(--mono); font-size: .98rem; padding-top: .45rem; }
 .post-item-title { font-size: 1.55rem; letter-spacing: .03em; }
 .post-item-title a { background: none; }
@@ -93,9 +90,8 @@ body.is-reading .site-backdrop::after, body:not(.home) .site-backdrop::after { o
 .work-main h3 { font-size: 1.55rem; letter-spacing: .05em; }
 .tags { margin-top: .7rem; color: var(--ink-soft); font-size: .92rem; }
 .work-desc { margin-block: 1.25rem 1.65rem; color: var(--ink-soft); font-size: 1.05rem; line-height: 1.9; }
-.text-arrow { margin-top: auto; display: inline-flex; align-items: center; min-height: 44px; padding: 0; font-size: .98rem; transition: color .3s ease; }
-.text-arrow:hover { color: #f3e6c8; }
-.text-arrow span[aria-hidden] { margin-left: .75rem; }
+.work-link { margin-top: auto; display: inline-flex; align-items: center; min-height: 44px; padding: 0; font-size: .98rem; text-decoration: underline; text-decoration-color: transparent; text-underline-offset: .35em; transition: color .3s ease, text-decoration-color .3s ease; }
+.work-link:hover, .work-link:focus-visible { color: #f3e6c8; text-decoration-color: var(--gold); }
 
 .contact-intro { margin-bottom: 2rem; font-family: var(--serif); font-size: clamp(1.55rem,2.6vw,2.05rem); line-height: 1.85; letter-spacing: .06em; }
 .contact-intro span { color: var(--ink-soft); }
@@ -115,7 +111,6 @@ body:not(.home) .site-main { background: transparent; padding-bottom: 4rem; }
 .page-head h1 { font-size: clamp(2.5rem,5vw,4rem); }
 .lede { color: var(--ink-soft); font-size: 1.12rem; }
 .post { max-width: 44rem; }
-.back-link a::before { content: "← "; }
 .post-body { margin-top: 2.6rem; padding-top: 2.4rem; border-top: 1px solid var(--line-soft); }
 .work-player { margin-top: 2rem; aspect-ratio: 16 / 9; background: #07080a; border: 1px solid var(--line-soft); }
 .work-player video { display: block; width: 100%; height: 100%; object-fit: contain; background: #000; }
@@ -158,8 +153,7 @@ body:not(.home) .site-main { background: transparent; padding-bottom: 4rem; }
   .about-meta { padding-left: 1.2rem; font-size: 1.02rem; }
   .about-copy { font-size: 1.08rem; }
   .about-copy p:nth-child(2) { font-size: 1.22rem; }
-  .post-item { grid-template-columns: 1fr; gap: .55rem; padding: 1.5rem 1.8rem 1.5rem 0; }
-  .post-item::after { top: 1.5rem; right: 0; }
+  .post-item { grid-template-columns: 1fr; gap: .55rem; padding: 1.5rem 0; }
   .post-item time { padding: 0; font-size: .92rem; }
   .post-item-title { font-size: 1.35rem; }
   .post-item-body p { font-size: 1.02rem; }

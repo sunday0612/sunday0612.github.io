@@ -555,22 +555,13 @@ a {
   line-height: 1.8;
 }
 
-.text-arrow {
+.work-link {
   color: var(--gold-bright);
   text-decoration: none;
   letter-spacing: 0.08em;
   align-self: start;
   justify-self: start;
   padding-top: 0.35rem;
-}
-
-.text-arrow span[aria-hidden] {
-  display: inline-block;
-  transition: transform 0.3s ease;
-}
-
-.text-arrow:hover span[aria-hidden] {
-  transform: translateX(4px);
 }
 
 .contact-list > div {
@@ -769,7 +760,7 @@ a {
     align-items: start;
   }
 
-  .text-arrow {
+  .work-link {
     justify-self: end;
     padding-top: 0.2rem;
   }

@@ -12,12 +12,12 @@ body_class: home
     <p class="hero-verse">在静夜里，<br>收集微光。</p>
     <p class="tagline">{{ profile.tagline | escape }}</p>
     <div class="hero-actions">
-      <a class="btn btn-primary" href="#posts">翻阅文章 <span aria-hidden="true">↗</span></a>
-      <a class="btn btn-quiet" href="{{ profile.github | default: 'https://github.com/sunday0612' }}" rel="me noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+      <a class="btn btn-primary" href="#posts">翻阅文章</a>
+      <a class="btn btn-quiet" href="{{ profile.github | default: 'https://github.com/sunday0612' }}" rel="me noopener noreferrer">GitHub</a>
     </div>
   </div>
   <div class="hero-foot">
-    <a class="scroll-cue" href="#about"><span class="scroll-line" aria-hidden="true"></span>向下，慢慢了解<span aria-hidden="true"> ↓</span></a>
+    <a class="scroll-cue" href="#about"><span class="scroll-line" aria-hidden="true"></span>慢慢了解</a>
     <p class="scene-note"><span aria-hidden="true">☾</span> 静夜 · 远山 · 一点微光</p>
   </div>
 </section>
@@ -58,7 +58,7 @@ body_class: home
     <span class="sec-index">02</span>
     <h2>博客文章</h2>
     <span class="section-en" lang="en">JOURNAL</span>
-    <a class="section-more" href="{{ '/blog/' | relative_url }}">全部文章 <span aria-hidden="true">↗</span></a>
+    <a class="section-more" href="{{ '/blog/' | relative_url }}">全部文章</a>
   </div>
   {% if site.posts.size == 0 %}
     <p class="empty">还没有文章。在 <code>_posts</code> 目录放一份 Markdown 即可。</p>
@@ -107,8 +107,8 @@ body_class: home
             {% else %}
               {% assign project_href = project.url | relative_url %}
             {% endif %}
-            <a class="text-arrow" href="{{ project_href }}"{% if external %} target="_blank" rel="noopener noreferrer"{% endif %}>
-              {{ project.link_label | default: "查看" | escape }}<span aria-hidden="true"> →</span>
+            <a class="work-link" href="{{ project_href }}"{% if external %} target="_blank" rel="noopener noreferrer"{% endif %}>
+              {{ project.link_label | default: "查看" | escape }}
               {% if external %}<span class="sr-only">（新标签页打开）</span>{% endif %}
             </a>
           {% endif %}
