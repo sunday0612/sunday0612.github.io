@@ -1,18 +1,22 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-type="service">
 {% include head.html %}
 <body{% if page.body_class %} class="{{ page.body_class | escape }}"{% endif %}>
   <div class="site-backdrop" aria-hidden="true">
     <picture class="site-background">
-      <img src="{{ '/assets/images/night-lake-moonlight-v2.webp' | relative_url }}" srcset="{{ '/assets/images/night-lake-moonlight-mobile-v2.webp' | relative_url }} 960w, {{ '/assets/images/night-lake-moonlight-v2.webp' | relative_url }} 1672w" sizes="100vw" width="1672" height="941" alt="" fetchpriority="high" decoding="async">
+      <img src="{{ '/assets/images/night-lake-moonlight-v2.webp' | relative_url }}" srcset="{{ '/assets/images/night-lake-moonlight-mobile-v2.webp' | relative_url }} 960w, {{ '/assets/images/night-lake-moonlight-v2.webp' | relative_url }} 1672w" sizes="(max-aspect-ratio: 1672/941) 178vh, 100vw" width="1672" height="941" alt="" fetchpriority="high" decoding="async">
     </picture>
   </div>
   <a class="skip-link" href="#content">跳到正文</a>
   {% include header.html %}
   <main id="content" class="site-main">
+    {% if page.body_class == 'home' %}
+      {{ content }}
+    {% else %}
     <div class="wrap">
       {{ content }}
     </div>
+    {% endif %}
   </main>
   {% include footer.html %}
   <script src="{{ '/assets/js/site.js' | relative_url }}?v={{ site.time | date: '%Y%m%d%H%M%S' }}" defer></script>

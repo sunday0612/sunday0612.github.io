@@ -3,6 +3,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#10110f">
   <meta name="color-scheme" content="dark">
+  <meta name="page-type" content="service">
+  <meta name="site-kind" content="other">
   {% if page.layout == "post" and page.excerpt %}
     {% assign desc = page.excerpt | strip_html | strip_newlines | truncate: 140 %}
   {% elsif page.description %}
@@ -25,18 +27,9 @@
   <meta property="og:locale" content="zh_CN">
   <meta property="og:image" content="{{ '/assets/images/night-lake-moonlight-v2.webp' | absolute_url }}">
   <meta property="og:image:alt" content="静夜山湖，月光照亮远山与薄雾">
-  <link rel="preload" as="image" href="{{ '/assets/images/night-lake-moonlight-v2.webp' | relative_url }}" imagesrcset="{{ '/assets/images/night-lake-moonlight-mobile-v2.webp' | relative_url }} 960w, {{ '/assets/images/night-lake-moonlight-v2.webp' | relative_url }} 1672w" imagesizes="100vw" fetchpriority="high">
+  <link rel="preload" as="image" href="{{ '/assets/images/night-lake-moonlight-v2.webp' | relative_url }}" imagesrcset="{{ '/assets/images/night-lake-moonlight-mobile-v2.webp' | relative_url }} 960w, {{ '/assets/images/night-lake-moonlight-v2.webp' | relative_url }} 1672w" imagesizes="(max-aspect-ratio: 1672/941) 178vh, 100vw" fetchpriority="high">
   <link rel="icon" href="{{ '/assets/favicon.svg' | relative_url }}" type="image/svg+xml">
   <link rel="alternate" type="application/atom+xml" title="{{ site.title | escape }}" href="{{ '/feed.xml' | relative_url }}">
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5.3.1/500.css">
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}?v={{ site.time | date: '%Y%m%d%H%M%S' }}">
   <link rel="stylesheet" href="{{ '/assets/css/nocturne.css' | relative_url }}?v={{ site.time | date: '%Y%m%d%H%M%S' }}">
-  <script>
-    try {
-      if (window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
-        document.documentElement.classList.add("motion");
-      }
-    } catch (err) {}
-  </script>
 </head>

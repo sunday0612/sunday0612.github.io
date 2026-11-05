@@ -1,7 +1,7 @@
 # 首页「联系方式」
 # url 填链接。邮箱请写成 mailto:you@example.com
 # 没有链接的一项，把 url 留成 "" 即可。
-# placeholder 为 true 时，页面上会显示「占位」。
+# placeholder 为 true 时，首页暂不展示，填写真实联系方式后改为 false。
 
 - label: "GitHub"
   text: "sunday0612"

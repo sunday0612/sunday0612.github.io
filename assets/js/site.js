@@ -1,133 +1,82 @@
-/* 渐进增强：滚动高亮、山湖视差与入场。内容与链接不依赖脚本。 */
+/* Progressive enhancement: visible content first, an accessible menu, and one current nav item. */
 (() => {
-  const motionQuery = window.matchMedia('(prefers-reduced-motion: no-preference)');
+  document.documentElement.classList.add('js');
+  const header = document.querySelector('.site-header');
+  const nav = document.querySelector('#primary-nav');
+  const toggle = document.querySelector('.menu-toggle');
+  const desktop = window.matchMedia('(min-width: 720px)');
+  let menuOpen = false;
 
-  const setMotion = () => {
-    document.documentElement.classList.toggle('motion', motionQuery.matches);
+  const syncHeader = () => {
+    if (header) document.documentElement.style.setProperty('--header-offset', `${header.getBoundingClientRect().height}px`);
   };
-  setMotion();
-  if (motionQuery.addEventListener) motionQuery.addEventListener('change', setMotion);
+  syncHeader();
+  if (header && 'ResizeObserver' in window) new ResizeObserver(syncHeader).observe(header);
+  window.addEventListener('resize', syncHeader, { passive: true });
 
-  initScrollSpy();
-  initBackground();
-  if (motionQuery.matches) {
-    initReveal();
+  function setMenu(open, returnFocus = false) {
+    if (!nav || !toggle) return;
+    menuOpen = open;
+    nav.classList.toggle('is-open', open);
+    document.body.classList.toggle('menu-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.textContent = open ? '关闭' : '菜单';
+    document.querySelectorAll('.site-main,.site-footer').forEach(node => { node.inert = open; });
+    if (open) nav.querySelector('a')?.focus();
+    else if (returnFocus) toggle.focus();
   }
 
-  function initScrollSpy() {
-    if (!document.body.classList.contains('home')) return;
-    const links = [...document.querySelectorAll('.nav a')];
-    const sections = [...document.querySelectorAll('main section[id]')];
-    const hero = document.querySelector('main .hero');
-    const header = document.querySelector('.site-header');
-    if (!links.length || !sections.length) return;
-    const homeLink = links.find((link) => {
-      const url = new URL(link.href, location.origin);
-      return !url.hash && url.pathname === location.pathname;
-    });
+  toggle?.addEventListener('click', () => setMenu(!menuOpen));
+  nav?.addEventListener('click', event => { if (event.target.closest('a') && menuOpen) setMenu(false); });
+  if (desktop.addEventListener) desktop.addEventListener('change', event => { if (event.matches) setMenu(false); });
+  document.addEventListener('keydown', event => {
+    if (!menuOpen) return;
+    if (event.key === 'Escape') { event.preventDefault(); setMenu(false, true); }
+    if (event.key !== 'Tab') return;
+    const items = [...header.querySelectorAll('a,button')].filter(node => node.getClientRects().length);
+    const first = items[0], last = items[items.length - 1];
+    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+  });
 
-    const linkFor = (id) => {
-      if (id === 'posts') {
-        return links.find((link) => {
-          const path = new URL(link.href, location.origin).pathname.replace(/\/+$/, '');
-          return path.endsWith('/blog');
-        });
-      }
-      return links.find((link) => new URL(link.href, location.origin).hash === `#${id}`);
+  if (!document.body.classList.contains('home') || !nav) return;
+  const links = [...nav.querySelectorAll('a')];
+  const sections = [...document.querySelectorAll('main section[id]')];
+  const hero = document.querySelector('main .hero');
+  const home = links.find(link => { const url = new URL(link.href); return !url.hash && url.pathname === location.pathname; });
+  const linkFor = id => links.find(link => {
+    const url = new URL(link.href);
+    return id === 'posts' ? url.pathname.replace(/\/+$/, '').endsWith('/blog') : url.hash === `#${id}`;
+  });
+  let frame = 0;
+  const update = () => {
+    frame = 0;
+    const headerHeight = header?.getBoundingClientRect().height || 0;
+    const visible = node => {
+      const rect = node.getBoundingClientRect();
+      return Math.max(0, Math.min(rect.bottom, innerHeight) - Math.max(rect.top, headerHeight));
     };
-
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      const headerH = header ? header.getBoundingClientRect().height : 0;
-      // 按导航下方各分区实际占据的可见面积判断，避免文章已成为
-      // 主要阅读内容时，仍要等分节边框贴近导航栏才切换高亮。
-      const visibleHeight = (node) => {
-        const rect = node.getBoundingClientRect();
-        return Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, headerH));
-      };
-      const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-      const canScroll = maxScroll > 8;
-      const atBottom = canScroll && window.scrollY >= maxScroll - 24;
-      let current = null;
-      let largest = hero ? visibleHeight(hero) : 0;
-      if (atBottom) {
-        current = sections[sections.length - 1];
-      } else {
-        for (const section of sections) {
-          const visible = visibleHeight(section);
-          if (visible > largest) {
-            largest = visible;
-            current = section;
-          }
-        }
-      }
-      const active = current ? linkFor(current.id) : homeLink;
-      for (const link of links) {
-        const on = link === active;
-        link.classList.toggle('is-active', on);
-        if (on) link.setAttribute('aria-current', link === homeLink ? 'page' : 'location');
-        else link.removeAttribute('aria-current');
-      }
-    };
-
-    const request = () => {
-      if (frame) return;
-      frame = requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener('scroll', request, { passive: true });
-    window.addEventListener('resize', request, { passive: true });
-    window.addEventListener('hashchange', request);
-    window.addEventListener('load', request);
-    window.addEventListener('pageshow', request);
-    if ('ResizeObserver' in window && header) {
-      const observer = new ResizeObserver(() => {
-        document.documentElement.style.setProperty('--header-offset', `${header.getBoundingClientRect().height}px`);
-        request();
-      });
-      observer.observe(header);
+    let current = null, largest = hero ? visible(hero) : 0;
+    const maxScroll = Math.max(0, document.documentElement.scrollHeight - innerHeight);
+    if (maxScroll > 8 && scrollY >= maxScroll - 24) current = sections[sections.length - 1];
+    else for (const section of sections) {
+      const height = visible(section);
+      if (height > largest) { current = section; largest = height; }
     }
-    if (document.fonts?.ready) document.fonts.ready.then(request);
-  }
-
-  function initReveal() {
-    if (!('IntersectionObserver' in window)) {
-      document.documentElement.classList.remove('motion');
-      return;
+    const active = current ? linkFor(current.id) : home;
+    for (const link of links) {
+      const on = link === active;
+      link.classList.toggle('is-active', on);
+      if (on) link.setAttribute('aria-current', link === home ? 'page' : 'location');
+      else link.removeAttribute('aria-current');
     }
-    const nodes = [...document.querySelectorAll('.reveal')];
-    if (!nodes.length) return;
-    const observer = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        entry.target.classList.add('is-in');
-        observer.unobserve(entry.target);
-      }
-    }, { threshold: 0.22, rootMargin: '0px 0px -8% 0px' });
-    nodes.forEach((node) => observer.observe(node));
-  }
-
-  function initBackground() {
-    const backdrop = document.querySelector('.site-backdrop');
-    if (!backdrop) return;
-    const hero = document.querySelector('.home .hero');
-    let scrollFrame = 0;
-    const parallax = () => {
-      scrollFrame = 0;
-      const y = Math.max(window.scrollY, 0);
-      const shift = motionQuery.matches ? Math.min(y * 0.035, 12) : 0;
-      backdrop.style.setProperty('--background-shift', `${shift}px`);
-      document.body.classList.toggle('is-reading', !hero || y > hero.offsetHeight * 0.55);
-    };
-    const onScroll = () => {
-      if (scrollFrame) return;
-      scrollFrame = requestAnimationFrame(parallax);
-    };
-    parallax();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
-    if (motionQuery.addEventListener) motionQuery.addEventListener('change', onScroll);
-  }
+  };
+  const request = () => { if (!frame) frame = requestAnimationFrame(update); };
+  update();
+  window.addEventListener('scroll', request, { passive: true });
+  window.addEventListener('resize', request, { passive: true });
+  window.addEventListener('hashchange', request);
+  window.addEventListener('pageshow', request);
+  window.addEventListener('load', request);
+  document.fonts?.ready.then(request);
 })();
