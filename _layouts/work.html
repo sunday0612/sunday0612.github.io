@@ -1,0 +1,166 @@
+---
+layout: default
+---
+{% assign work = site.data.works | where: "id", page.work_id | first %}
+{% if work %}
+  {% if work.kind == "video" %}
+    {% assign kind_label = "视频" %}
+  {% elsif work.kind == "image" %}
+    {% assign kind_label = "图片" %}
+  {% elsif work.kind == "render3d" %}
+    {% assign kind_label = "3D 渲染" %}
+  {% else %}
+    {% assign kind_label = work.kind %}
+  {% endif %}
+  <article class="post work-detail">
+    <header class="post-header">
+      <p class="back-link"><a href="{{ '/works/' | relative_url }}">返回作品集</a></p>
+      <p class="post-meta">
+        {% if work.year %}<span>{{ work.year | escape }}</span>{% endif %}
+        <span aria-hidden="true">·</span>
+        <span>{{ kind_label | escape }}</span>
+        {% if work.subtitle %}
+          <span aria-hidden="true">·</span>
+          <span>{{ work.subtitle | escape }}</span>
+        {% endif %}
+      </p>
+      <h1>{{ work.name | escape }}</h1>
+    </header>
+
+    {% if work.kind == "video" and work.media.video %}
+      <div class="work-player">
+        <video controls preload="metadata" playsinline poster="{{ work.media.poster | relative_url }}">
+          <source src="{{ work.media.video | relative_url }}" type="video/mp4">
+        </video>
+      </div>
+    {% elsif work.kind == "image" and work.gallery %}
+      <div class="work-gallery">
+        {% for image in work.gallery %}
+          <figure>
+            <img src="{{ image.src | relative_url }}" alt="{{ image.alt | escape }}" width="{{ image.width }}" height="{{ image.height }}" loading="lazy" decoding="async">
+            {% if image.caption %}<figcaption>{{ image.caption | escape }}</figcaption>{% endif %}
+          </figure>
+        {% endfor %}
+      </div>
+    {% elsif work.kind == "render3d" %}
+      <div class="work-scene">
+        <p>最终场景在单独的页面里，此页不加载三维程序。</p>
+        {% if work.scene_url %}
+          <p><a class="btn btn-primary" href="{{ work.scene_url }}">进入交互场景</a></p>
+        {% endif %}
+        {% if work.viewing %}<p class="process-note">{{ work.viewing | escape }}</p>{% endif %}
+      </div>
+    {% endif %}
+
+    {% if work.gallery and work.kind == "render3d" and work.gallery.size > 0 %}
+      <div class="work-gallery">
+        {% for image in work.gallery %}
+          <figure>
+            <img src="{{ image.src | relative_url }}" alt="{{ image.alt | escape }}" loading="lazy" decoding="async">
+            {% if image.caption %}<figcaption>{{ image.caption | escape }}</figcaption>{% endif %}
+          </figure>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="prose post-body work-process">
+      <h2>制作过程</h2>
+
+      <h3>想法</h3>
+      {% if work.idea and work.idea != "" %}
+        <p>{{ work.idea | escape }}</p>
+      {% else %}
+        <p class="process-missing">尚未补充。</p>
+      {% endif %}
+
+      <h3>工具</h3>
+      {% if work.tools and work.tools.size > 0 %}
+        <ul>
+          {% for tool in work.tools %}
+            <li>{{ tool | escape }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="process-missing">尚未补充。</p>
+      {% endif %}
+
+      <h3>提示词与分镜</h3>
+      {% if work.prompt and work.prompt != "" %}
+        <p>{{ work.prompt | escape }}</p>
+      {% elsif work.storyboard and work.storyboard != "" %}
+        <p>{{ work.storyboard | escape }}</p>
+      {% else %}
+        <p class="process-missing">尚未补充。</p>
+      {% endif %}
+      {% if work.prompt and work.prompt != "" and work.storyboard and work.storyboard != "" %}
+        <p>{{ work.storyboard | escape }}</p>
+      {% endif %}
+
+      <h3>关键步骤</h3>
+      {% if work.steps and work.steps.size > 0 %}
+        <ol class="process-steps">
+          {% for step in work.steps %}
+            <li>
+              <p class="process-kicker">
+                {% if step.date %}{{ step.date | escape }}{% endif %}
+                {% if step.title %}{% if step.date %} · {% endif %}{{ step.title | escape }}{% endif %}
+              </p>
+              {% if step.text %}<p>{{ step.text | escape }}</p>{% endif %}
+              {% if step.reason %}<p class="process-note">记录范围：{{ step.reason | escape }}</p>{% endif %}
+              {% if step.images %}
+                {% for image in step.images %}
+                  <img src="{{ image.src | relative_url }}" alt="{{ image.alt | escape }}" loading="lazy" decoding="async">
+                {% endfor %}
+              {% endif %}
+              {% if step.videos %}
+                {% for clip in step.videos %}
+                  <video controls preload="metadata" playsinline{% if clip.poster %} poster="{{ clip.poster | relative_url }}"{% endif %}>
+                    <source src="{{ clip.src | relative_url }}" type="video/mp4">
+                  </video>
+                {% endfor %}
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ol>
+      {% else %}
+        <p class="process-missing">尚未补充。</p>
+      {% endif %}
+
+      <h3>版本对照</h3>
+      {% if work.versions and work.versions.size > 0 %}
+        <div class="version-grid">
+          {% for version in work.versions %}
+            <figure>
+              {% if version.src %}
+                <img src="{{ version.src | relative_url }}" alt="{{ version.alt | default: version.label | escape }}" loading="lazy" decoding="async">
+              {% elsif version.video %}
+                <video controls preload="metadata" playsinline{% if version.poster %} poster="{{ version.poster | relative_url }}"{% endif %}>
+                  <source src="{{ version.video | relative_url }}" type="video/mp4">
+                </video>
+              {% endif %}
+              <figcaption>
+                {% if version.label %}<strong>{{ version.label | escape }}</strong>{% endif %}
+                {% if version.note %}{{ version.note | escape }}{% endif %}
+              </figcaption>
+            </figure>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="process-missing">尚未补充。</p>
+      {% endif %}
+
+      {% if work.description %}
+        <h3>成片说明</h3>
+        <p>{{ work.description | escape }}</p>
+      {% endif %}
+    </div>
+  </article>
+{% else %}
+  <article class="post">
+    <header class="post-header">
+      <p class="back-link"><a href="{{ '/works/' | relative_url }}">返回作品集</a></p>
+      <h1>没有找到这件作品</h1>
+    </header>
+    <p class="empty">目录里没有对应的公开条目。</p>
+  </article>
+{% endif %}

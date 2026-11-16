@@ -1,0 +1,63 @@
+# 作品集目录。首页仍用 _data/projects.yml 展示主推作品。
+# 这里只放已经决定公开的作品。placeholder: true 的条目不会出现在作品集。
+#
+# kind 只能是：
+#   video     视频
+#   image     图片
+#   render3d  3D 渲染
+#
+# 没有的过程信息留空，页面会写「尚未补充」。不要编造提示词、模型名、分镜或对比图。
+# 媒体只放明确公开的成片、封面和过程图，路径写在下面。
+# 交互式三维场景用 scene_url 指向已经公开的地址，不要把大型三维程序嵌进作品集。
+
+- id: were-done
+  kind: video
+  name: "We're Done"
+  year: "2026"
+  subtitle: "12 秒单镜头短片"
+  summary: "一段 12 秒的单镜头 AI 短片。以固定机位和逐秒分镜，记录门口的一次告别。"
+  description: "一个固定的门口过肩近景长镜头。门内男人随口招呼“Hey, what's up, babe?”，门外女子停顿片刻，平静地说出“We're done.”，随后转身沿街离开，镜头停在空出的街道上。根据我写的逐秒分镜脚本，用 AI 视频生成制作。"
+  url: "/works/were-done/"
+  cover: "/assets/images/works/were-done-poster.jpg"
+  tags:
+    - "短片"
+    - "AI 视频"
+  media:
+    video: "/assets/videos/were-done.mp4"
+    poster: "/assets/images/works/were-done-poster.jpg"
+  idea: "一个固定的门口过肩近景长镜头。门内男人随口招呼“Hey, what's up, babe?”，门外女子停顿片刻，平静地说出“We're done.”，随后转身沿街离开，镜头停在空出的街道上。"
+  tools:
+    - "AI 视频生成（现有说明只写到这一层，具体模型名称尚未补充）"
+  prompt: ""
+  storyboard: ""
+  steps: []
+  versions: []
+
+- id: shanshui-3d
+  kind: render3d
+  name: "山水·木塔"
+  year: "2026"
+  subtitle: "可交互的 3D 山水场景"
+  summary: "用 Three.js 做的中国风山水：群山之间的五层木塔、溪流、木拱桥、林木、荷塘与飞鸟。交互场景在独立页面打开。"
+  description: "用 Three.js 渲染的 3D 中国风山水：群山之间的五层木塔（逐砖逐瓦）、潺潺溪流、红色木拱桥、松竹枫樱、荷塘锦鲤、飞鸟蝴蝶。以上内容来自公开仓库说明，不是事后补写的分镜。"
+  url: "/works/shanshui-3d/"
+  scene_url: "https://sunday0612.github.io/shanshui-3d/"
+  tags:
+    - "3D 渲染"
+    - "Three.js"
+  viewing: "鼠标左键拖动可以旋转视角，滚轮缩放，右键拖动平移。需要支持 WebGL 的浏览器。场景文件是自包含的单页，作品集这里不加载它。"
+  idea: "公开说明里的设定是：用 Three.js 渲染一组中国风山水，群山之间有五层木塔、溪流、木拱桥、松竹枫樱、荷塘锦鲤、飞鸟蝴蝶。"
+  tools:
+    - "Three.js"
+    - "WebGL"
+  prompt: ""
+  storyboard: ""
+  steps:
+    - date: "2026-11-12"
+      title: "场景首次公开"
+      text: "公开仓库的首次提交说明是「3D 中国风山水·木塔」。"
+    - date: "2026-11-13"
+      title: "部分显卡上的大片黑块"
+      text: "后续提交说明原文是：「修复部分显卡上的大片黑块：着色器 NaN/Inf 防护、后期前清洗、黑屏自动降档」。"
+      reason: "这里只照录该次提交说明，没有更细的过程记录。"
+  versions: []
