@@ -39,6 +39,19 @@
     else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
   });
 
+  document.querySelectorAll('.storyboard-scroll').forEach((box) => {
+    box.addEventListener('keydown', (event) => {
+      if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+      const max = box.scrollWidth - box.clientWidth;
+      if (max <= 0) return;
+      const delta = event.key === 'ArrowRight' ? 48 : -48;
+      const next = Math.max(0, Math.min(max, box.scrollLeft + delta));
+      if (next === box.scrollLeft) return;
+      box.scrollLeft = next;
+      event.preventDefault();
+    });
+  });
+
   if (!document.body.classList.contains('home') || !nav) return;
   const links = [...nav.querySelectorAll('a')];
   const sections = [...document.querySelectorAll('main section[id]')];
