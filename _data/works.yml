@@ -25,9 +25,33 @@
   media:
     video: "/assets/videos/were-done.mp4"
     poster: "/assets/images/works/were-done-poster.jpg"
-  idea: "一个固定的门口过肩近景长镜头。门内男人随口招呼“Hey, what's up, babe?”，门外女子停顿片刻，平静地说出“We're done.”，随后转身沿街离开，镜头停在空出的街道上。"
+  idea: ""
   tools:
     - "AI 视频生成（现有说明只写到这一层，具体模型名称尚未补充）"
+  prompt: ""
+  storyboard: ""
+  steps: []
+  versions: []
+
+- id: clockwork-thames
+  kind: video
+  name: "Clockwork Thames"
+  year: "2026"
+  subtitle: "15 秒一镜到底动画"
+  summary: "一段 15 秒的一镜到底程序化动画。小汽船沿泰晤士河躲避炮艇，身后的伦敦逐片变成钟表机芯。"
+  description: "一个近轴测俯视的长镜头，沿泰晤士河逆流而上：塔桥、碎片大厦、千禧桥、圣保罗、伦敦眼、大本钟。一艘蓝钢黄铜小汽船在河面蛇形疾驰，躲避三艘悬浮炮艇的光弹；前方是冷蓝色的暴雨和闪电，身后的城市逐片变成黄铜齿轮、发条和珐琅花朵。最后镜头推入大本钟钟面，停在机芯中央一颗发光的红宝石上。根据我写的提示词，由 AI 编写 Python 代码逐帧渲染而成的程序化动画，没有使用视频生成模型，声音也是代码合成的。"
+  url: "/works/clockwork-thames/"
+  cover: "/assets/images/works/clockwork-thames-poster.jpg"
+  tags:
+    - "短片"
+    - "程序化动画"
+  media:
+    video: "/assets/videos/clockwork-thames.mp4"
+    poster: "/assets/images/works/clockwork-thames-poster.jpg"
+  idea: ""
+  tools:
+    - "AI 编写的 Python 逐帧渲染（公开说明如此；没有写出具体库名，也没有使用视频生成模型）"
+    - "代码合成的声音"
   prompt: ""
   storyboard: ""
   steps: []

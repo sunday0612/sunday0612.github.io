@@ -45,8 +45,21 @@ layout: default
     {% elsif work.kind == "render3d" %}
       <div class="work-scene">
         <p>最终场景在单独的页面里，此页不加载三维程序。</p>
-        {% if work.scene_url %}
-          <p><a class="btn btn-primary" href="{{ work.scene_url }}">进入交互场景</a></p>
+        {% assign scene = work.scene_url | default: "" | strip %}
+        {% assign scene_key = scene | downcase %}
+        {% assign scene_prefix8 = scene_key | slice: 0, 8 %}
+        {% assign scene_prefix7 = scene_key | slice: 0, 7 %}
+        {% assign scene_prefix1 = scene | slice: 0, 1 %}
+        {% assign scene_href = "" %}
+        {% if scene_prefix8 == "https://" or scene_prefix7 == "http://" %}
+          {% assign scene_href = scene %}
+        {% elsif scene_prefix1 == "/" %}
+          {% unless scene contains ":" %}
+            {% assign scene_href = scene | relative_url %}
+          {% endunless %}
+        {% endif %}
+        {% if scene_href != "" %}
+          <p><a class="btn btn-primary" href="{{ scene_href | escape }}">进入交互场景</a></p>
         {% endif %}
         {% if work.viewing %}<p class="process-note">{{ work.viewing | escape }}</p>{% endif %}
       </div>
