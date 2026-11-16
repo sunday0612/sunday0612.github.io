@@ -83,10 +83,10 @@ body:not(.home) .site-backdrop::after { opacity: .65; }
 .tags { color: var(--gold-bright); font-size: .8125rem; margin-top: 1rem; letter-spacing: .04em; }
 .work-desc { color: var(--ink-soft); font-size: 1rem; line-height: 1.85; margin: 1.25rem 0 1.5rem; max-width: 31rem; }
 .work-action { display: inline-flex; align-items: center; min-height: 44px; color: var(--gold-bright); font-size: .9375rem; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: .45em; transition: text-decoration-color .18s; }
-.featured-media { align-self: stretch; min-height: 22rem; overflow: hidden; background: #090c0a; }
-.featured-media img { width: 100%; height: 100%; min-height: 22rem; aspect-ratio: 16/10; object-fit: cover; object-position: 40% center; display: block; transition: transform .6s; }
+.featured-media { align-self: center; min-height: 0; overflow: hidden; background: #090c0a; }
+.featured-media img { width: 100%; height: auto; min-height: 0; aspect-ratio: 16/9; object-fit: contain; object-position: center; display: block; }
 .featured-work:hover,.featured-work:focus-visible { border-color: var(--gold); transform: translateY(-2px); }
-.featured-work:hover .featured-media img,.featured-work:focus-visible .featured-media img { transform: scale(1.025); }
+.featured-work:hover .featured-media img,.featured-work:focus-visible .featured-media img { transform: none; }
 .featured-work:hover .work-action,.featured-work:focus-visible .work-action { text-decoration-color: var(--gold-bright); }
 .featured-work-text { grid-template-columns: 1fr; }
 
@@ -210,7 +210,7 @@ body:not(.home) .site-main { padding-top: var(--header-offset); padding-bottom: 
   .work-meta { margin-bottom: 1rem; }
   .work-desc { margin-bottom: 1rem; }
   .featured-media { min-height: 0; }
-  .featured-media img { aspect-ratio: 16/9; height: auto; min-height: 0; }
+  .featured-media img { aspect-ratio: 16/9; height: auto; min-height: 0; object-fit: contain; }
   .post-item { grid-template-columns: 1fr; gap: .6rem; padding: 1.5rem 0; }
   .post-item-title { font-size: 1.25rem; }
   .post-item time { padding: 0; }
