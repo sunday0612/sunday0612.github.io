@@ -97,16 +97,41 @@ layout: default
         <p class="process-missing">尚未补充。</p>
       {% endif %}
 
-      <h3>提示词与分镜</h3>
+      <h3>提示词</h3>
       {% if work.prompt and work.prompt != "" %}
         <p>{{ work.prompt | escape }}</p>
-      {% elsif work.storyboard and work.storyboard != "" %}
-        <p>{{ work.storyboard | escape }}</p>
       {% else %}
         <p class="process-missing">尚未补充。</p>
       {% endif %}
-      {% if work.prompt and work.prompt != "" and work.storyboard and work.storyboard != "" %}
-        <p>{{ work.storyboard | escape }}</p>
+
+      <h3>原始分镜（制作前规划）</h3>
+      {% if work.storyboard_rows and work.storyboard_rows.size > 0 %}
+        {% if work.storyboard_note %}<p>{{ work.storyboard_note | escape }}</p>{% endif %}
+        <div class="storyboard-scroll" tabindex="0" role="region" aria-label="原始分镜（制作前规划），可横向滚动">
+          <table class="storyboard-table">
+            <caption class="sr-only">原始分镜（制作前规划）</caption>
+            <thead>
+              <tr>
+                <th scope="col">镜号／时间</th>
+                <th scope="col">景别与摄影</th>
+                <th scope="col">连续画面、表演与调度</th>
+                <th scope="col">台词与声音</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in work.storyboard_rows %}
+                <tr>
+                  <th scope="row">{{ row.shot | escape }}</th>
+                  <td>{% assign bits = row.camera | split: "**" %}{% for bit in bits %}{% assign mod = forloop.index0 | modulo: 2 %}{% if mod == 1 %}<strong>{{ bit | escape }}</strong>{% else %}{{ bit | escape }}{% endif %}{% endfor %}</td>
+                  <td>{% assign bits = row.action | split: "**" %}{% for bit in bits %}{% assign mod = forloop.index0 | modulo: 2 %}{% if mod == 1 %}<strong>{{ bit | escape }}</strong>{% else %}{{ bit | escape }}{% endif %}{% endfor %}</td>
+                  <td>{% assign bits = row.sound | split: "**" %}{% for bit in bits %}{% assign mod = forloop.index0 | modulo: 2 %}{% if mod == 1 %}<strong>{{ bit | escape }}</strong>{% else %}{{ bit | escape }}{% endif %}{% endfor %}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <p class="process-missing">尚未补充。</p>
       {% endif %}
 
       <h3>关键步骤</h3>

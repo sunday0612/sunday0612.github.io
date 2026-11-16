@@ -152,6 +152,12 @@ body:not(.home) .site-main { padding-top: var(--header-offset); padding-bottom: 
 .portfolio:has(#filter-video:checked) .filter-empty[data-for="video"],
 .portfolio:has(#filter-image:checked) .filter-empty[data-for="image"],
 .portfolio:has(#filter-render3d:checked) .filter-empty[data-for="render3d"] { display: block; }
+.storyboard-scroll { max-width: 100%; overflow-x: auto; border: 1px solid var(--line-soft); }
+.storyboard-scroll:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 3px; }
+.storyboard-table { width: 100%; min-width: 52rem; border-collapse: collapse; }
+.storyboard-table th,.storyboard-table td { border-bottom: 1px solid var(--line-soft); padding: .75rem .8rem; vertical-align: top; text-align: left; white-space: normal; }
+.storyboard-table th[scope="row"] { width: 8rem; }
+.storyboard-table p { margin: 0; }
 .work-process h2 { margin-top: 0; font-size: 1.5rem; }
 .work-process h3 { margin: 1.6rem 0 .6rem; font-size: 1.15rem; }
 .process-missing,.process-note { color: var(--ink-soft); }

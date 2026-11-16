@@ -125,7 +125,8 @@
 
 - `idea`：想法。没有就留空。
 - `tools`：已经知道的工具名称列表。不知道的不要猜。
-- `prompt`、`storyboard`：只有手头真有原文时才填。
+- `prompt`：只有手头真有提示词原文时才填。
+- `storyboard_note`：分镜表前的原话。`storyboard_rows` 按原稿逐行填写 `shot`、`camera`、`action`、`sound`。这是制作前规划，不要改写成对成片的核对结论。
 - `steps`：按时间排列的步骤。每一步可以有 `date`、`title`、`text`、`reason`，以及可选的 `images`、`videos`。
 - `versions`：真有成片对照时才填，每项用 `label`、`note`，再加 `src` 或 `video`。
 - `gallery`：图片作品或三维渲染的公开静帧。
