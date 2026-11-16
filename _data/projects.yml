@@ -16,6 +16,18 @@
     - "短片"
     - "AI 视频"
 
+- name: "Clockwork Thames"
+  cover: "/assets/images/works/clockwork-thames-poster.jpg"
+  summary: "一段 15 秒的一镜到底程序化动画。小汽船沿泰晤士河躲避炮艇，身后的伦敦逐片变成钟表机芯。"
+  year: "2026"
+  subtitle: "15 秒一镜到底动画"
+  description: "一个近轴测俯视的长镜头，沿泰晤士河逆流经过塔桥、碎片大厦、千禧桥、圣保罗、伦敦眼和大本钟。蓝钢黄铜小汽船蛇形躲避三艘悬浮炮艇的光弹，身后的城市逐片变成齿轮、发条和珐琅花朵，镜头最后推入大本钟，停在机芯中央的红宝石上。根据我写的提示词，由 AI 编写 Python 代码逐帧渲染。"
+  url: "/works/clockwork-thames/"
+  link_label: "查看"
+  tags:
+    - "短片"
+    - "程序化动画"
+
 - name: "静夜笔记"
   placeholder: true
   year: "2026"
