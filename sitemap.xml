@@ -3,10 +3,16 @@ layout: null
 ---
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>{{ "/" | absolute_url }}</loc></url>
-  <url><loc>{{ "/blog/" | absolute_url }}</loc></url>
-  <url><loc>{{ "/works/were-done/" | absolute_url }}</loc></url>
-  <url><loc>{{ "/works/clockwork-thames/" | absolute_url }}</loc></url>
+  <url><loc>{{ "/" | absolute_url | xml_escape }}</loc></url>
+  <url><loc>{{ "/blog/" | absolute_url | xml_escape }}</loc></url>
+  <url><loc>{{ "/works/" | absolute_url | xml_escape }}</loc></url>
+  {% for work in site.data.works %}
+    {% unless work.placeholder %}
+      {% if work.url %}
+        <url><loc>{{ work.url | absolute_url | xml_escape }}</loc></url>
+      {% endif %}
+    {% endunless %}
+  {% endfor %}
   {% for post in site.posts %}
   <url>
     <loc>{{ post.url | absolute_url | xml_escape }}</loc>

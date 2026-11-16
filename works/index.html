@@ -1,0 +1,89 @@
+---
+layout: default
+title: 作品集
+permalink: /works/
+description: "按视频、图片和 3D 渲染查看已经公开的作品。"
+---
+<header class="page-head">
+  <p class="eyebrow">作品集</p>
+  <h1>影像、图片与三维</h1>
+  <p class="lede">这里只列已经公开的作品。没有材料的类别会直接说明，不放示例图。</p>
+</header>
+
+{% assign catalog = site.data.works | where_exp: "item", "item.placeholder != true" %}
+{% assign video_works = catalog | where: "kind", "video" %}
+{% assign image_works = catalog | where: "kind", "image" %}
+{% assign render_works = catalog | where: "kind", "render3d" %}
+
+<div class="portfolio">
+  <fieldset class="filters">
+    <legend class="sr-only">按类别筛选</legend>
+    <label class="filter-option">
+      <input id="filter-all" type="radio" name="work-kind" checked>
+      <span>全部</span>
+      <span class="filter-count">{{ catalog.size }}</span>
+    </label>
+    <label class="filter-option">
+      <input id="filter-video" type="radio" name="work-kind">
+      <span>视频</span>
+      <span class="filter-count">{{ video_works.size }}</span>
+    </label>
+    <label class="filter-option">
+      <input id="filter-image" type="radio" name="work-kind">
+      <span>图片</span>
+      <span class="filter-count">{{ image_works.size }}</span>
+    </label>
+    <label class="filter-option">
+      <input id="filter-render3d" type="radio" name="work-kind">
+      <span>3D 渲染</span>
+      <span class="filter-count">{{ render_works.size }}</span>
+    </label>
+  </fieldset>
+
+  <ul class="portfolio-grid">
+    {% for work in catalog %}
+      {% if work.kind == "video" %}
+        {% assign kind_label = "视频" %}
+      {% elsif work.kind == "image" %}
+        {% assign kind_label = "图片" %}
+      {% elsif work.kind == "render3d" %}
+        {% assign kind_label = "3D 渲染" %}
+      {% else %}
+        {% assign kind_label = work.kind %}
+      {% endif %}
+      {% assign external = false %}
+      {% if work.url contains "://" %}
+        {% assign external = true %}
+        {% assign work_href = work.url %}
+      {% else %}
+        {% assign work_href = work.url | relative_url %}
+      {% endif %}
+      <li>
+        <a class="featured-work portfolio-card{% unless work.cover %} featured-work-text{% endunless %}" data-kind="{{ work.kind }}" href="{{ work_href }}"{% if external %} target="_blank" rel="noopener noreferrer"{% endif %}>
+          <div class="featured-copy">
+            <p class="work-meta">{{ work.year | escape }}<span class="meta-separator" aria-hidden="true">/</span>{{ kind_label | escape }}{% if work.subtitle %}<span class="meta-separator" aria-hidden="true">/</span>{{ work.subtitle | escape }}{% endif %}</p>
+            <h2>{{ work.name | escape }}</h2>
+            {% if work.tags %}<p class="tags">{{ work.tags | join: " · " | escape }}</p>{% endif %}
+            <p class="work-desc">{{ work.summary | default: work.description | escape }}</p>
+            <span class="work-action">{% if work.kind == "video" %}观看短片{% elsif work.kind == "render3d" %}查看说明{% else %}查看作品{% endif %}</span>
+          </div>
+          {% if work.cover %}
+            <div class="featured-media">
+              <img src="{{ work.cover | relative_url }}" width="848" height="480" alt="{{ work.name | escape }} 的公开封面" loading="lazy" decoding="async">
+            </div>
+          {% endif %}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+
+  {% if video_works.size == 0 %}
+    <p class="filter-empty empty" data-for="video">目前还没有视频作品。</p>
+  {% endif %}
+  {% if image_works.size == 0 %}
+    <p class="filter-empty empty" data-for="image">目前还没有图片作品。公开的图片会按这个类别列在这里。</p>
+  {% endif %}
+  {% if render_works.size == 0 %}
+    <p class="filter-empty empty" data-for="render3d">目前还没有 3D 渲染作品。</p>
+  {% endif %}
+</div>
